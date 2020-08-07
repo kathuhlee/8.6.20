@@ -1,0 +1,141 @@
+def yell_sentence(sent)
+    words = sent.split(" ")
+    new_words = arr.map{|words| words.upcase + "!"}
+    return new_words.join(" ")
+
+end
+
+def yell_sentence(sent)
+    return sent.split.map{|words| words.upcase + "!"}.join(" ")
+end
+
+
+puts yell_sentence("I have a bad feeling about this") #=> "I! HAVE! A! BAD! FEELING! ABOUT! THIS!"
+
+# we want to take in a sentence string and output a string where every word is yelled with exclamation marks
+# map can only be used on an array
+# we need to modify a string and every word of the string
+# we need to split the sentence at every word
+# we had to use an array as a middle man
+# to condense the code more, words can be condensed into new_words = sent.split.map
+
+def whisper_words(words)
+    new_words =words.map{|words| words.upcase + "..."}
+    return new_words
+end
+
+def whisper_words(words)
+    return words.map{|words| words.downcase + "..."}
+
+end
+
+print whisper_words(["KEEP", "The", "NOISE", "down"]) # => ["keep...", "the...", "noise...", "down..."]
+puts
+
+# map is a great choice because we need to modify every element of the array and give a new array
+# this is exactly what map does
+# we take in each element of the word and specify what we want to modify about it 
+# we want the output to be lowercased and have ellipsis added
+
+def o_words(sentence)
+   return sentence.split.select {|word| word.include?("o")}
+end
+
+print o_words("How did you do that?") #=> ["How", "you", "do"]
+puts
+
+# we want to take in a string array and return words with the letter "o"
+# we cannot immediately use select on it, select works on arrays
+# we can split the sentence into an array and then use select
+# sentence.split will split on a space and give an array of each word
+# we can use split without specifying a parameter and it will automatically split at a space
+# we can chain .select and allow it to take in a block
+# we want to select words with the letter o 
+# for all words with the letter o, it will return it into the array
+# by using select, it makes the code very clean and elegant as it evaluates to a new array
+
+def last_index(str, char)
+    i = str.length - 1
+    while i >= 0
+        if str[i] == char
+            return i 
+        end
+        i -=1
+    end
+    
+end
+
+puts last_index("abca", "a")       #=> 3
+puts last_index("mississipi", "i") #=> 9
+puts last_index("octagon", "o")    #=> 5
+puts last_index("programming", "m")#=> 7
+
+# we want to write in a method that takes in a long string and a single character and return the last index which the character is found
+# we want to mimic the behavior of the old index method and instead have it find the rightmost index instead of the usual left most
+# iterate the string from right to left instead 
+# i = string.length - 1
+# have this so we can start from the end
+# loop while the index is greater than or equal to 0
+# i-=1 we are going from a big index and going smaller
+# we are going through each character of the string and now we want to go through if the character is the same as the character we are looking for
+# we are going to iterate through the string starting from the end, once it finds the first instance starting from the end of the string, it will end
+# we can return the i of the string as that is where it is found and what we want at the end 
+
+def most_vowels(sentence)
+    counts = {}
+
+    sentence.split.each do |word|
+        counts[word] = vowel_count(word)
+    end
+
+    sorted = counts.sort_by {|k, v| v}
+    return sorted[-1][0]
+end
+
+def vowel_count(word)
+    count = 0
+    vowels = "aeiou"
+
+    word.each_char do |char|
+        if vowels.include?(char)
+            count +=1
+        end
+    end
+    return count
+end
+
+print most_vowels("what a wonderful life") #=> "wonderful"
+
+# we pass in a string and want the output to return the word with the most vowels
+# we want to first identify which word contains the most vowels
+# the main fcn takes in multiple words and in our helper function, we'll call upon one word
+# if we call in a fcn vowel_count, we want it to return the number of vowels
+# we want to think about what these helper methods will return
+# we want to iterate through every character of our word to count the number of vowels
+# we iterate using the each enumerable to go through each char and see if it includes the char
+# if the char is a vowel, we add to the count
+# we have to split the sentence first, split automatically splits in a space
+# let's try to get a hash first where every key is a word and every value is the number of vowels
+# we want to assign every single word with the vowel count it has
+
+# use counts.sort_by 
+# this method takes in a block, have it pass in the key and value
+# the key is the word and the value is the number of vowels
+# we want to sort the key value pairs by their values
+# we choose to sort by the value of the key value pairs
+# we choose to sort by the value of the hash
+# we sorted by the value and the last element provides the key with the largest value
+
+# we want the last element of the last array
+# sorted[-1] returns the last subarray
+# sorted[-1][0] to give the last element in the last subarray to provide the number of vowels
+
+# whenever we decompose any large problem, we try to notice any repeated work
+# here, the repeated work was the sentence containing multiple words
+# the task we had to do is repetitive for every word
+#     we had a helper fcn to go through each word
+#     and the main code had to keep calling upon the helper fcn
+
+
+
+
